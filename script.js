@@ -3,23 +3,65 @@ const api = {
   base_url: 'http://api.openweathermap.org/data/2.5/'
 }
 
+const unsplash = 'https://source.unsplash.com/1600x900/?';
 const searchBox = document.querySelector('.search-box');
 searchBox.addEventListener('keypress', setQuery);
 
 function setQuery(e) {
   if(e.keyCode == 13){
     getResult(searchBox.value);
-    console.log(searchBox.value);
     searchBox.value = '';
   }
 }
 
-function getResult(query) {
-  fetch (`${api.base_url}weather?q=${query}&units=metric&appid=${api.key}`)
-  .then(weather => {
-    console.log(weather.status);
-    return weather.json();
-  }).then(displayResults);
+async function getResult(query) {
+  const res = await fetch (`${api.base_url}weather?q=${query}&units=metric&appid=${api.key}`, {mode: 'cors'});
+  const weather = await res.json();
+  displayResults(weather);
+}
+
+function changeBG(type) {
+  switch(type){
+    case 'Clouds':;
+      document.body.style.background=`url('${unsplash}nature,clouds')`;
+      break;
+        
+    case 'Clear':
+      document.body.style.background=`url('${unsplash}nature,clear')`;
+      break;
+
+    case 'Rain':
+      document.body.style.background=`url('${unsplash}nature,rain')`;
+      break;
+          
+    case 'Snow':
+      document.body.style.background=`url('${unsplash}nature,snow')`;
+      break;
+          
+    case 'Drizzle':
+      document.body.style.background=`url('${unsplash}nature,drizzle')`;
+      break;
+        
+    case 'Thunderstorm':
+      document.body.style.background=`url('${unsplash}nature,thunderstorm')`;
+      break;
+    
+    case 'Mist':
+      document.body.style.background=`url('${unsplash}nature,mist')`;
+      break;
+
+    case 'Haze':
+      document.body.style.background=`url('${unsplash}nature,haze')`;
+      break;
+
+    case 'Fog':
+      document.body.style.background=`url('${unsplash}nature,fog')`;
+      break;
+    
+    default:
+      document.body.style.background=`url("bg.jpg")`;
+      break;
+  }
 }
 
 function displayResults(weather) {
@@ -36,6 +78,7 @@ function displayResults(weather) {
 
   const weather_el = document.querySelector('.current .weather');
   weather_el.textContent = weather.weather[0].main;
+  changeBG(weather.weather[0].main);
 
   const hilow = document.querySelector('.hi-low');
   hilow.innerHTML = `${Math.round(weather.main.temp_min)}°C/${Math.round(weather.main.temp_max)}°C`;
