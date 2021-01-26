@@ -1,6 +1,6 @@
 const api = {
   key: 'f4b36deaaf4f9ca30155e7122fa856ad',
-  base_url: 'http://api.openweathermap.org/data/2.5/'
+  base_url: 'https://api.openweathermap.org/data/2.5/'
 }
 
 const unsplash = 'https://source.unsplash.com/1600x900/?';
