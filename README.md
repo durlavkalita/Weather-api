@@ -1,7 +1,5 @@
 # Weather-api⛈️
 
-### preview- https://durlavk.github.io/Weather-api/
-
 ### used-
 - html:cloud
 - css
